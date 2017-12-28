@@ -1,0 +1,221 @@
+<!------------- PRCS MODAL code --------------------- -->
+
+<div class="modal fade" id="prcsinfo" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="mcloseprcs()">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+
+          <div *ngIf='loadp'>
+            <img src="assets/load.gif" style="padding-left: 378px;"/>
+            </div>
+
+    <!--    [ngClass]="x.etype == 'error' ? 'card-header bg-danger text-white': x.etype == 'success' ?  'card-header bg-success text-white' : 'card-header bg-warning text-white'" -->
+        <div *ngIf='!loadp'>
+         <div class= 'panel panel-info'>
+    <div class="panel-heading">Process Monitoring</div>
+    <div class="panel-body">
+<table class="table table-striped"  style="font-size:12px;" >
+  <thead>
+    <tr>
+       <th>Client Name</th>
+      <th>Server Name</th>
+      <th>Domain Name</th>
+     <th>PrcsInstance Number</th>
+       <th>OPRID</th>
+        <th>PrcsName</th>
+         <th>MainJobName</th>
+    </tr>
+  </thead>
+ <tbody *ngFor="let item of prcsinfo | pipef : 'NoSuccessError'">
+    <tr *ngFor="let d of item.Data">
+      <td>{{item.Client}}</td>
+      <td>{{item.servername}}</td>
+      <td>{{item.Domain}}</td>
+       <td>{{d.PRCSINSTANCE}}</td>
+    <td>{{d.OPRID}}</td>
+     <td>{{d.PRCSNAME}}</td>
+      <td>{{d.MAINJOBNAME}}</td>
+    </tr>
+   
+  </tbody>
+  
+</table>
+<!--<button type="button" class="btn btn-success" data-toggle="collapse" data-target="#demo" (click)="moreprc(prcsdata[0].servername)">+More Info</button>
+
+<div id="demo" class="collapse" style="padding-top: 9px;">
+<div class="panel panel-info">
+  <div class="panel-heading">PRCS Master Schedulers</div>
+  <div class="panel-body">
+
+    <table class="table table-striped"  style="font-size:12px;" >
+      <thead>
+        <tr>
+          <th>Server Name</th>
+          <th>Domain Name</th>
+         <th> Master Process Scheduler</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let item of moreprcsinfo">
+        <tr *ngFor="let d of item.Data" >
+          
+          <td>{{item.servername}}</td>
+          <td>{{item.Domain}}</td>
+           <td ><span style="color:#68ae00" *ngIf="d.SERVERNAME">{{d.SERVERNAME}}   <span class="glyphicon glyphicon-upload"></span></span>
+        <span style="color:red" *ngIf="!d.SERVERNAME">Master Not found <span class="glyphicon glyphicon-download"></span></span></td>
+        
+        </tr>
+       
+      </tbody>
+      </table>
+
+
+  </div>
+</div>
+</div>-->
+
+
+
+
+
+
+    </div>
+  </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="mcloseprcs()">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+<!----------------------------------------------------- -->
+<!-----------------Start DB modal ------------------------- -->
+
+
+
+
+
+
+
+
+
+
+<div class='col-xs-12'>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Custom Monitoring</div>
+  <div class="panel-body">
+ <div class="row">
+
+
+<div class="col-xs-3">
+                 <div class="panel panel-info">
+    <div class="panel-heading">
+    Process Monitoring
+  </div>
+  <div class="card-body">
+    <div style="display: block" style="padding-top: 5px;">
+
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top img-metric" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHVGpV6t5-3wS4unA1fmRZ4T5TGb0h7J4ZRTlIgMTgVTu8lqsiIQ" style=" width: 206px;   padding-left: 71px;">
+  
+  <ul class="list-group list-group-flush gmetric" style="padding-left: 20px;width: 261px;padding-top:3px">
+     <li class="list-group-item" *ngIf="pprc.count>0">Processing <span class="badge badge-primary badge-pill" style="background-color: red;" (click)="open('Prcocessing')">{{pprc.count}}</span></li>
+    <li class="list-group-item" *ngIf="nprc.count>0">No success <span class="badge badge-primary badge-pill" style="background-color: red; cursor:pointer" data-toggle="modal" data-target="#prcsinfo" (click)="open('NoSuccessError')">{{nprc.count}}</span></li>
+    <li class="list-group-item" *ngIf="peprc.count>0">Pending <span class="badge badge-primary badge-pill" style="background-color: red;">{{peprc.count}}</span></li>
+    <li class="list-group-item" *ngIf="bprc.count>0">Blocked <span class="badge badge-primary badge-pill" style="background-color: red;">{{bprc.count}}</span></li>
+     <li class="list-group-item" *ngIf="iprc.count>0">Initiated <span class="badge badge-primary badge-pill" style="background-color: red;">{{iprc.count}}</span></li>
+  <li class="list-group-item" *ngIf="qprc.count>0">Queued <span class="badge badge-primary badge-pill" style="background-color: red;">{{qprc.count}}</span></li>
+  <!--  <li class="list-group-item">Total Monitored <span class="badge badge-primary badge-pill" style="background-color:gray;" data-toggle="modal" data-target="#servermodal1" (click)="getd('cpu')">1</span></li>
+ --> </ul>
+  <!--<div class="progress">
+        <div class="progress-bar progress-bar-danger" style="width: 80%">
+            used (40%)
+        </div>
+       <!-- <div class="progress-bar progress-bar-success" style="width: 25%">
+            Free (25%)
+        </div>-->
+       <!-- <div class="progress-bar progress-bar-danger" style="width: 15%">
+            Junk Files (15%)
+        </div>
+    </div>---- progress div -->
+ <!-- <div class="card-block">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>-->
+</div>
+
+
+
+</div>
+  </div>
+  
+  
+</div></div>
+
+
+
+
+  <!-- <div class="col-xs-3">
+                 <div class="panel panel-info">
+    <div class="panel-heading">
+    Disk Space
+  </div>
+  <div class="card-body">
+    <div style="display: block">
+ <!-- <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>-
+<div class="card" style="width: 20rem;">
+  <img class="card-img-top img-metric" src="https://cdn0.iconfinder.com/data/icons/multimedia-and-electronics/512/hdd_hard_drive_disk_technology_storage_save_hardware_information_data_sata_device_memory_tool_backup_computer_electronics_equipment_flat_design_icon-512.png" alt="Card image cap">
+  <!-- <div class="card-block">
+   <h4 class="card-title">Card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <ul class="list-group list-group-flush gmetric">
+    <li class="list-group-item">Error  <span class="badge badge-primary badge-pill" style="background-color: red;">1</span></li>
+    <li class="list-group-item">Warning</li>
+    <li class="list-group-item">Success</li>
+    <li class="list-group-item">Total Monitored <span class="badge badge-primary badge-pill" style="background-color:gray;"data-toggle="modal" data-target="#servermodal2" (click)="getd('disk')">1</span></li>
+  </ul>
+ <!-- <div class="card-block">
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+
+
+
+</div>
+  </div>
+  
+  
+</div></div>-->
+
+
+
+
+
+
+
+
+
+
+<!-------------- Row ends -- -->
+
+
+
+
+
+ </div>
+  </div></div></div>
